@@ -147,7 +147,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)
   jquery-rails
-  mysql2 (>= 0.3.13, < 0.5)
+  mysql2
   rails (= 4.2.5.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
