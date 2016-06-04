@@ -1,1 +1,5 @@
 == DISEASE INFO
+
+Populate Databasewith disease info by running
+
+`rake mine_data:who`
