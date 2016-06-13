@@ -70,7 +70,7 @@ Make sure to name space you Disease name with the source. For example Malaria fr
 ## Available End Points
 
 | End Point                          | Method      |  Expected response                                                             |
-| ---------------------------------- |:-----------:| ------------------------------------------------------------------------------:|
+| ---------------------------------- |:-----------:|:------------------------------------------------------------------------------:|
 | /diseases.json                     |  GET        |  Gets a list of all diseases                                                   |
 | /diseases.json?data_source=source  |  GET        |  Gets a list of diseases from a particular source. Available sources are; who  |
 | /diseases/disease_name             |  GET        |  Gets a particular disease with the supplied name                              |
