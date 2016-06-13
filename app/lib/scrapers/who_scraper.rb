@@ -5,6 +5,7 @@ module Scrapers::WhoScraper
 
   WHO_DISEASE_PAGE = 'http://www.who.int/topics/infectious_diseases/factsheets/en/'
   CORE_ATTR = %w(symptoms transmission diagnosis treatment prevention)
+  DATA_SOURCE = 'WHO'
 
   def get_data
     disease_list_pages = open_page(WHO_DISEASE_PAGE).css(".auto_archive>li>a")
@@ -31,7 +32,7 @@ module Scrapers::WhoScraper
   def collect_data(disease_link)
     disease_page = open_page("http://www.who.int#{disease_link.attributes["href"].value}")
     disease_data = {
-        name: disease_page.css('.headline').children.text,
+        name: disease_page.css('.headline').children.text.capitalize + ' - ' + DATA_SOURCE,
         date_updated: disease_page.css('.meta span').text.split.last(2).join(" "),
         facts: facts(disease_page),
         more: "Source is http://www.who.int#{disease_link.attributes["href"].value}"
