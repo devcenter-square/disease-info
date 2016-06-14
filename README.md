@@ -65,14 +65,14 @@ Feel free to add another scraper by first adding your rake task to the present l
 Then create your scraper in `app/lib/scrapers`. You can follow the example of the WHO scraper.
 If you have to add new columns to the existing Disease structure based on the data you get, feel free to do that.
 More importantly, add the source of your data in the `more` column present on the Disease object.
-Make sure to name space you Disease name with the source. For example Malaria from WHO is saved with name Malaria - WHO.
+Make sure to name space your Disease name with the source. For example Malaria from WHO is saved with name Malaria - WHO.
 
 ## Available End Points
 
 | End Point                          | Method      |  Expected response                                                             |
 | ---------------------------------- |:-----------:|--------------------------------------------------------------------------------|
 | /diseases.json                     |  GET        |  Gets a list of all diseases                                                   |
-| /diseases.json?data_source=source  |  GET        |  Gets a list of diseases from a particular source. Available sources are; who  |
-| /diseases/disease_name.jso         |  GET        |  Gets a particular disease with the supplied name                              |
+| /diseases.json?data_source=source  |  GET        |  Gets a list of diseases from a particular source. Available sources are; WHO  |
+| /diseases/disease_name.json        |  GET        |  Gets a particular disease with the supplied name                              |
 
 
