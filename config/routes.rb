@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resources :diseases
+  resources :diseases, param: :disease
 end
