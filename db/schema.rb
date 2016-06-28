@@ -14,17 +14,17 @@
 ActiveRecord::Schema.define(version: 20160530074939) do
 
   create_table "diseases", force: :cascade do |t|
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "name",         limit: 255
-    t.string   "date_updated", limit: 255
-    t.text     "facts",        limit: 65535
-    t.text     "symptoms",     limit: 65535
-    t.text     "transmission", limit: 65535
-    t.text     "diagnosis",    limit: 65535
-    t.text     "treatment",    limit: 65535
-    t.text     "prevention",   limit: 65535
-    t.text     "more",         limit: 65535
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "name"
+    t.string   "date_updated"
+    t.text     "facts"
+    t.text     "symptoms"
+    t.text     "transmission"
+    t.text     "diagnosis"
+    t.text     "treatment"
+    t.text     "prevention"
+    t.text     "more"
   end
 
 end
