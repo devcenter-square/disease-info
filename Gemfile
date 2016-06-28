@@ -1,14 +1,11 @@
 source 'https://rubygems.org'
 
-<<<<<<< 7e67adbe779fc544af4c0a6f8d9a2f27ec2399d6
 # Bundle gems for development with the command below.
 # bundle install --without production
 
 gem 'rails', '4.2.5.1'
-=======
 gem 'rails', '4.2.5.1'
 gem 'mysql2'
->>>>>>> Add basic procedure to setup locally to README.
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -19,12 +16,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'responders', '~> 2.0'
 
 group :development, :test do
-<<<<<<< 7e67adbe779fc544af4c0a6f8d9a2f27ec2399d6
   gem 'pry'
   gem 'sqlite3'
-=======
   gem 'pry-rails'
->>>>>>> Add basic procedure to setup locally to README.
 end
 
 group :development do
