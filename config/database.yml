@@ -49,7 +49,6 @@ test:
 #
 production:
   <<: *default
-  adapter: mysql2
   database: disease-info_production
   username: disease-info
   password: <%= ENV['DISEASE-INFO_DATABASE_PASSWORD'] %>
