@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 # bundle install --without production
 
 gem 'rails', '4.2.5.1'
-gem 'rails', '4.2.5.1'
 gem 'mysql2'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
