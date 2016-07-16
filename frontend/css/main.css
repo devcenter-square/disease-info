@@ -561,6 +561,9 @@ a:hover {
     background-color: white;
     margin-bottom: 0;
 }
+.navbar-right li a {
+    font-size: 15px;
+}
 .banner {
     background: url("../img/particles.png");
     height: 350px;
@@ -570,11 +573,16 @@ a:hover {
 }
 .banner > .container {
     position: absolute;
-    top: 40%;
+    top: 16rem;
     left: 0;
     right: 0;
     bottom: 0;
 }
+.banner-text {
+    letter-spacing: 1px;
+    font-size: 28px;
+}
+
 .bottom-header > div {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
@@ -588,9 +596,20 @@ a:hover {
 .bottom-container {
     background-color: white;
 }
-.searchbox {
-    background-color: white;
-    height: 200px;
+
+h4.d-name {
+    font-size: 20px;
+}
+p.d-shortinfo {
+    font-size: 14px;
+    padding-top: 10px;
+}
+p.d-shortsymptoms {
+    font-size: 14px;
+    padding: 10px 0;
+}
+.no-border {
+    border-bottom: none;
 }
 .btn-more {
     background-color: #04A2DC;
@@ -603,28 +622,30 @@ a:hover {
 .btn-more:hover {
     color: white;
 }
-h4.d-name {
-    font-size: 20px;
-}
-p.d-shortinfo {
-     font-size: 14px;
-     padding-top: 10px;
-}
-p.d-shortsymptoms {
-    font-size: 14px;
-    padding: 10px 0;
-}
-.no-border {
-    border-bottom: none;
+/*search box*/
+.searchbox {
+    background-color: white;
+    height: 200px;
 }
 .form-control {
     border-radius: 1px;
     height: 40px;
 }
-.banner-text {
-    letter-spacing: 1px;
-    font-size: 28px;
+
+
+/*individual disease page*/
+.onedisease-body {
+    background-color: white;
 }
+.onedisease-header > div {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.onedisease-body-box {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 
 /*media query*/
 @media (max-width: 767px) {
