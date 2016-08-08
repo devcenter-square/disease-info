@@ -18,6 +18,9 @@ group :development, :test do
   gem 'pry'
   gem 'sqlite3'
   gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.5'
+
+  # gem 'spec_writer'
 end
 
 group :development do

@@ -13,3 +13,4 @@
 /tmp
 
 .idea/
+db/test.sqlite3
