@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.3.1"
 
 # Bundle gems for development with the command below.
 # bundle install --without production
@@ -20,6 +21,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
+  gem 'faker'
   gem 'spec_writer'
 end
 
