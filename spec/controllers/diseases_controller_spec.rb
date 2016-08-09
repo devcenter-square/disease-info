@@ -37,4 +37,20 @@ describe DiseasesController, type: :controller do
     end
   end
 
+  describe "GET#show" do
+    it "should assign disease with name like the specified param as disease" do
+      disease_name = diseases.last.name
+      disease_name.length.times do |n|
+        next if n<3
+        get :show, disease: disease_name[0..n]
+        expect(assigns(:disease)).to eq diseases.last
+      end
+    end
+
+    it "should have a http success response" do
+      get :show, disease: diseases.last.name
+      expect(response.status).to be 200
+    end
+  end
+
 end
