@@ -5,7 +5,7 @@
                 <div class="onedisease-body col-sm-12">
                     <div class="onedisease-header">
                         <div class="col-sm-12">
-                            <h3>Malaria</h3>
+                            <h3>{{ oneDisease.disease.name }}</h3>
                         </div>
                     </div>
 
@@ -14,7 +14,7 @@
                             <div>
                                 <h4 class="d-name">Overview</h4>
 
-                                <p class="d-shortinfo">Malaria is caused by parasites that are transmitted to people through the bites of infected female mosquitoes. P. falciparum is the most deadly malaria parasite and the most prevalent in Africa, where malaria cases and deaths are heavily concentrated. Without prompt treatment, P. falciparum malaria can progress to severe illness and death.</p>
+                                <p class="d-shortinfo">{{ oneDisease.disease.facts }}</p>
 
                             </div>
                         </div>
@@ -23,9 +23,7 @@
                             <div>
                                 <h4 class="d-name">Symptoms</h4>
 
-                                <p class="d-shortinfo">In a non-immune individual, symptoms appear 7 days or more (usually 10–15 days) after the infective mosquito bite. The first symptoms – fever, headache, chills and vomiting – may be mild and difficult to recognize as malaria. If not treated within 24 hours, P. falciparum malaria can progress to severe illness, often leading to death.</p>
-
-                                <p class="d-shortinfo">Children with severe malaria frequently develop one or more of the following symptoms: severe anaemia, respiratory distress in relation to metabolic acidosis, or cerebral malaria. In adults, multi-organ involvement is also frequent. In malaria endemic areas, people may develop partial immunity, allowing asymptomatic infections to occur.</p>
+                                <p class="d-shortinfo">{{ oneDisease.disease.symptoms }}</p>
 
                             </div>
                         </div>
@@ -34,9 +32,40 @@
                             <div>
                                 <h4 class="d-name">Treatment</h4>
 
-                                <p class="d-shortinfo">Early diagnosis and treatment of malaria reduces disease and prevents deaths. It also contributes to reducing malaria transmission. The best available treatment, particularly for P. falciparum malaria, is artemisinin-based combination therapy (ACT).</p>
+                                <p class="d-shortinfo">{{ oneDisease.disease.treatment }}</p>
 
                             </div>
+                        </div>
+
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Transmission</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.transmission }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Diagnosis</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.diagnosis }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Prevention</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.prevention }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 m-t-md">
+                            <p class="d-shortinfo"> {{ oneDisease.disease.more }}</p>
                         </div>
                     </div>
                 </div>
