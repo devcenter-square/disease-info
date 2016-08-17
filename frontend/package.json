@@ -1,0 +1,22 @@
+{
+  "name": "angularapp",
+  "dependencies": {
+    "express": "^4.9.8",
+    "nodemon": "^1.8.1"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yomete/myangularseed.git"
+  },
+  "author": "Yomi Eluwande",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yomete/myangularseed/issues"
+  },
+  "homepage": "https://github.com/yomete/myangularseed#readme",
+  "description": "my customized angular app starter kit for projects"
+}

@@ -1,0 +1,84 @@
+<div class="onedisease m-t-lg m-b-lg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9 col-md-9">
+                <div class="onedisease-body col-sm-12">
+                    <div class="onedisease-header">
+                        <div class="col-sm-12">
+                            <h3>{{ oneDisease.disease.name }}</h3>
+                        </div>
+                    </div>
+
+                    <div class="onedisease-body-content">
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Overview</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.facts }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Symptoms</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.symptoms }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Treatment</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.treatment }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Transmission</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.transmission }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Diagnosis</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.diagnosis }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 onedisease-body-box">
+                            <div>
+                                <h4 class="d-name">Prevention</h4>
+
+                                <p class="d-shortinfo">{{ oneDisease.disease.prevention }}</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 m-t-md">
+                            <p class="d-shortinfo"> {{ oneDisease.disease.more }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-md-3 bottom-right">
+                <div class="searchbox">
+                    <form class="wrapper-md">
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Search" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

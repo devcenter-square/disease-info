@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <!-- FOR ANGULAR ROUTING -->
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Disease Info</title>
+
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="/assets/css/loading-bar.min.css" rel="stylesheet" type="text/css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body ng-app="diseaseinfo">
+    <header>
+        <nav class="navbar navbar-default topnav">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a class="navbar-brand" href="/">
+                        Disease Info
+                    </a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="">Why</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="text-white text-center banner-text">Disease info is a web app for<br> Nigerians to get information on<br> diseases and how to prevent them</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-view>
+    </div>
+
+
+
+<script type="text/javascript" src="/assets/js/angular.min.js"></script>
+<script type="text/javascript" src="/assets/js/angular.min.js.map"></script>
+<script type="text/javascript" src="/assets/js/angular-animate.min.js"></script>
+<script type="text/javascript" src="/assets/js/angular-animate.min.js.map"></script>
+<script type="text/javascript" src="/assets/js/angular-route.min.js"></script>
+<script type="text/javascript" src="/assets/js/loading-bar.min.js"></script>
+<script type="text/javascript" src="/assets/js/dirPagination.js"></script>
+
+<script type="text/javascript" src="/assets/js/controllers/mainCtrl.js"></script>
+
+<script type="text/javascript" src="/assets/js/services/services.js"></script>
+
+<script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
