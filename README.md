@@ -55,4 +55,10 @@ Make sure to name space your Disease name with the source. For example Malaria f
 | /diseases.json?data_source=source  |  GET        |  Gets a list of diseases from a particular source. Available sources are; WHO  |
 | /diseases/disease_name.json        |  GET        |  Gets a particular disease with the supplied name                              |
 
+## Road Map
+This will be the first release and we are tagging it v1.0. See it live [here](https://disease-info.herokuapp.com/).
 
+### To Do
+First see the [Contribution Guide](https://github.com/o-prime/disease-info/blob/develop/CONTRIBUTION.md) for how to contribute.
+- [ ] Add more health information sites
+- [ ] Include a way to verify the scrapped data
