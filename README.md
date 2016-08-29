@@ -1,6 +1,6 @@
 # DISEASE INFO
 
-This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al.
+This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in (Ruby)[https://www.ruby-lang.org/en/], to contribute, check out the (Contribution Guide)[https://github.com/o-prime/disease-info/blob/develop/CONTRIBUTION.md].
 
 ## Getting Started
 
@@ -14,31 +14,11 @@ If you use https, use this instead
 
 ## Database
 
-This project uses **Mysql**, if you already have it installed on your machine, you can skip to the next step.
+This project uses **sqlite3**, if you already have it installed on your machine, you can skip to the next step.
 
-If you don't have it installed:
-
-### Mac users
-
-You can install it with
-```brew update && brew install mysql```
-
-Skip this part **unless** you are having errors setting up your DB.
-
-Create a config file at any location of your choice e.g
-
-```touch /usr/local/etc/my.cnf```
-
-Then type this in the file
-
-```
-[mysqld]
-skip-external-locking
-```
-
-### Others
-
-Please follow the instructions [here](http://dev.mysql.com/doc/refman/5.7/en/installing.html).
+If you don't have it installed, check the following links for guides on how to install:
+- (SQLite - Installation)[http://www.tutorialspoint.com/sqlite/sqlite_installation.htm] by Tutorials Point
+- (How to install SQLite3)[http://mislav.net/rails/install-sqlite3/] by Mislav Marohnić
 
 ## Setting Up
 
