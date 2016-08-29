@@ -1,6 +1,6 @@
 # DISEASE INFO
 
-This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in (Ruby)[https://www.ruby-lang.org/en/], to contribute, check out the (Contribution Guide)[https://github.com/o-prime/disease-info/blob/develop/CONTRIBUTION.md].
+This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/o-prime/disease-info/blob/develop/CONTRIBUTION.md).
 
 ## Getting Started
 
@@ -17,8 +17,8 @@ If you use https, use this instead
 This project uses **sqlite3**, if you already have it installed on your machine, you can skip to the next step.
 
 If you don't have it installed, check the following links for guides on how to install:
-- (SQLite - Installation)[http://www.tutorialspoint.com/sqlite/sqlite_installation.htm] by Tutorials Point
-- (How to install SQLite3)[http://mislav.net/rails/install-sqlite3/] by Mislav Marohnić
+- [SQLite - Installation](http://www.tutorialspoint.com/sqlite/sqlite_installation.htm) by Tutorials Point
+- [How to install SQLite3](http://mislav.net/rails/install-sqlite3/) by Mislav Marohnić
 
 ## Setting Up
 
