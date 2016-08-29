@@ -14,7 +14,7 @@ If you use https, use this instead
 
 ## Database
 
-This project uses **sqlite3**, if you already have it installed on your machine, you can skip to the next step.
+This project uses **SQLite3** for development and testing and **PostgreSQL** for production. To contribute, you only need to install SQLite3. If you already have it installed on your machine, you can skip to the next step.
 
 If you don't have it installed, check the following links for guides on how to install:
 - [SQLite - Installation](http://www.tutorialspoint.com/sqlite/sqlite_installation.htm) by Tutorials Point
