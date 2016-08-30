@@ -7,7 +7,7 @@ Want to join the Contributors' channel?
 
 First Sign up [here](https://devcenter-square-slack.herokuapp.com/) to join the DC Square Slack Channel, then fill this [contributors form](https://docs.google.com/forms/d/1JiRNzYS69ojHPCql254HMMmp72cRb2TMGVC6BiOTw6E/viewform?c=0&w=1) to get added to the the Disease Info Contributors' channel.
 
-**The #1 contribution you could make is to blog, share, post, tweet, and tell people about disease-info.  This will go a long ways towards helping build a sustainable community.**
+**The #1 contribution you could make is to blog, share, post, tweet, and tell people about disease-info.  TThis will go a long way in building a sustainable community.**
 
 We are happy to accept contributions of any kind, including feedback and ideas, translations for other locales, and functionality. 
 
