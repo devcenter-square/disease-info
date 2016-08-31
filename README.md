@@ -1,6 +1,6 @@
 # Disease Info
 
-This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/o-prime/disease-info/blob/develop/CONTRIBUTION.md).
+This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTION.md).
 
 ## Getting Started
 
@@ -59,6 +59,6 @@ Make sure to name space your Disease name with the source. For example Malaria f
 This will be the first release and we are tagging it v1.0. To see it live, go to https://disease-info-api.herokuapp.com/diseases. For specific a specific disease, use https://disease-info-api.herokuapp.com/diseases/tuberculosis. Also if you are using Chrome to access the site you could install [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en) to get a prettier display.
 
 ### To Do
-First see the [Contribution Guide](https://github.com/o-prime/disease-info/blob/develop/CONTRIBUTION.md) for how to contribute.
+First see the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTION.md) for how to contribute.
 - [ ] Add more Health Organizations' disease information sites
 - [ ] Include a way to verify the scrapped data
