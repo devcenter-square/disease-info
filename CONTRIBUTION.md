@@ -1,11 +1,17 @@
 Contributing
 ============
 
-We have a contributors Slack room inside the DC Square Slack Channel. [Join the DC Square Slack Channel] (https://devcenter-square-slack.herokuapp.com/) and fill this [contributors form](https://docs.google.com/forms/d/1JiRNzYS69ojHPCql254HMMmp72cRb2TMGVC6BiOTw6E/viewform?c=0&w=1) to get added:
+We have a Contributors' Slack channel inside [DC Square's Slack Channel](devcenter-square.slack.com). 
 
-**The #1 contribution you could make is to blog, share, post, tweet, and tell people about disease-info.  This will go a long ways towards helping build a sustainable community.**
+Want to join the Contributors' channel? 
 
-We are happy to accept contributions of any kind, including feedback and ideas, translations for other locales, and functionality. For new functionality, follow the standard approach by filling the form above.
+First Sign up [here](https://devcenter-square-slack.herokuapp.com/) to join the DC Square Slack Channel, then fill this [contributors form](https://docs.google.com/forms/d/1JiRNzYS69ojHPCql254HMMmp72cRb2TMGVC6BiOTw6E/viewform?c=0&w=1) to get added to the the Disease Info Contributors' channel.
+
+**The #1 contribution you could make is to blog, share, post, tweet, and tell people about disease-info.  TThis will go a long way in building a sustainable community.**
+
+We are happy to accept contributions of any kind, including feedback and ideas, translations for other locales, and functionality. 
+
+If you want to add new functionality, you can follow the standard approach by filling the form above.
 
 Git Workflow
 ============
