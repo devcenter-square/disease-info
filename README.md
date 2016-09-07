@@ -62,3 +62,4 @@ This will be the first release and we are tagging it v1.0. To see it live, go to
 First see the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTION.md) for how to contribute.
 - [ ] Add more Health Organizations' disease information sites
 - [ ] Include a way to verify the scrapped data
+- [ ] Put the symptoms of each disease in an array
