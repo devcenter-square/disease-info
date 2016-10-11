@@ -1,6 +1,6 @@
 # Disease Info
 
-This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTION.md).
+This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md).
 
 ## Getting Started
 
