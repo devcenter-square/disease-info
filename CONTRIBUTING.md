@@ -1,15 +1,19 @@
 Contributing
 ============
 
-We have a Contributors' Slack channel inside [DC Square's Slack Channel](https://devcenter-square.slack.com). 
+We have a Contributors' Slack channel inside [DC Square's Slack Channel](https://devcenter-square.slack.com).
 
-Want to join the Contributors' channel? 
+Want to join the Contributors' channel?
 
 First Sign up [here](https://devcenter-square-slack.herokuapp.com/) to join the DC Square Slack Channel, then fill this [contributors form](https://docs.google.com/forms/d/1JiRNzYS69ojHPCql254HMMmp72cRb2TMGVC6BiOTw6E/viewform?c=0&w=1) to get added to the the Disease Info Contributors' channel.
 
 **The #1 contribution you could make is to blog, share, post, tweet, and tell people about disease-info.  This will go a long way in building a sustainable community.**
 
-We are happy to accept contributions of any kind, including feedback and ideas, translations for other locales, and functionality. 
+Your next stop would be at the [issues page](https://github.com/devcenter-square/disease-info/issues). Here you can find a list of issues to fix as regards either the ongoing project, or bugs on the app.
+
+From time to time, there would be ongoing [project(s)](https://github.com/devcenter-square/disease-info/projects). Feel free to take a look at the [project's page](https://github.com/devcenter-square/disease-info/projects) to get a clearer idea of what the ongoing projects are and view related issues to get the projects completed.
+
+We are happy to accept contributions of any kind, including feedback and ideas, translations for other locales, and functionality.
 
 If you want to add new functionality, you can follow the standard approach by filling the form above.
 
