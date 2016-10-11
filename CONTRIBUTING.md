@@ -9,7 +9,7 @@ First Sign up [here](https://devcenter-square-slack.herokuapp.com/) to join the 
 
 **The #1 contribution you could make is to blog, share, post, tweet, and tell people about disease-info.  This will go a long way in building a sustainable community.**
 
-Your next stop would be at the [issues page](https://github.com/devcenter-square/disease-info/issues). Here you can find a list of issues to fix as regards either the ongoing project, or bugs on the app.
+Your next stop should be at the [issues page](https://github.com/devcenter-square/disease-info/issues). Here you can find a list of issues to fix as regards either the ongoing project, or bugs on the app.
 
 From time to time, there would be ongoing [project(s)](https://github.com/devcenter-square/disease-info/projects). Feel free to take a look at the [project's page](https://github.com/devcenter-square/disease-info/projects) to get a clearer idea of what the ongoing projects are and view related issues to get the projects completed.
 
