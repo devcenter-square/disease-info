@@ -55,6 +55,10 @@ module Scrapers::WhoScraper
   end
 
   def facts(disease_page)
-    disease_page.at('h3:contains("Key facts")').try(:next_element).try(:text)
+    parsed_lists = disease_page.at('h3:contains("Key facts")').try(:next_element)
+    if parsed_lists && (lists = parsed_lists.search("li")).present?
+      result = lists.inject([]) { |facts, list| facts << list.text.strip }
+    end
+    return result
   end
 end
