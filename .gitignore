@@ -15,3 +15,5 @@
 .idea/
 db/test.sqlite3
 db/development.sqlite3
+
+frontend/node_modules/
