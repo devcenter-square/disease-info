@@ -21,8 +21,10 @@ module Scrapers::WhoScraper
   def save_diseases(disease_list)
     disease_list.each do |link|
       begin
-        disease_data = collect_data(link)
-        Disease.create(disease_data)
+        unless is_banned?(link)
+          disease_data = collect_data(link)
+          Disease.create(disease_data)
+        end
       rescue
         next
       end
@@ -60,5 +62,14 @@ module Scrapers::WhoScraper
       result = lists.inject([]) { |facts, list| facts << list.text.strip }
     end
     return result
+  end
+
+  def is_banned?(link)
+    id = link.attributes["href"].value[/factsheets\/(\w+)\/en/, 1]
+    banned_factsheets.include?(id)
+  end
+
+  def banned_factsheets
+    %w(fs290 fs378)
   end
 end
