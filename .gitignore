@@ -11,6 +11,8 @@
 /log/*
 !/log/.keep
 /tmp
+coverage/
+db/test.sqlite3
 
 .idea/
 db/test.sqlite3

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.3.1"
+ruby '2.3.1'
 
 # Bundle gems for development with the command below.
 # bundle install --without production
@@ -27,6 +27,7 @@ end
 
 group :test do
   gem 'webmock'
+  gem 'simplecov', require: false
 end
 
 group :development do
