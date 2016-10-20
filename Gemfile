@@ -27,6 +27,8 @@ end
 
 group :test do
   gem 'webmock'
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'simplecov', require: false
 end
 
 group :development do

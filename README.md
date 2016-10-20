@@ -1,4 +1,4 @@
-# Disease Info [![Build Status](https://travis-ci.org/devcenter-square/disease-info.svg?branch=dev)](https://travis-ci.org/devcenter-square/disease-info)
+# Disease Info [![Build Status](https://travis-ci.org/devcenter-square/disease-info.svg?branch=develop)](https://travis-ci.org/devcenter-square/disease-info) [![Code Climate](https://codeclimate.com/github/devcenter-square/disease-info/badges/gpa.svg)](https://codeclimate.com/github/devcenter-square/disease-info) [![Test Coverage](https://codeclimate.com/github/devcenter-square/disease-info/badges/coverage.svg)](https://codeclimate.com/github/devcenter-square/disease-info/coverage)
 
 This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md).
 
