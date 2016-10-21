@@ -10,9 +10,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
+log/
 /tmp
 coverage/
 db/test.sqlite3
+vendor/
 
 .idea/
 db/test.sqlite3
