@@ -8,6 +8,7 @@ gem 'rails', '4.2.5.1'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'jbuilder', '~> 2.0'
 gem 'responders', '~> 2.0'
+gem 'jbuilder-prettify', '~> 0.0.1'
 
 group :development, :test do
   gem 'pry'
