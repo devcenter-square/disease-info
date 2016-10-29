@@ -23,5 +23,14 @@ describe Scrapers::Who::DiseaseParser do
         expect(parser.data.keys).to eq(keys)
       end
     end
+
+    describe 'when parsed data has invalid data' do
+      it 'does not return any error' do
+        VCR.use_cassette('who/scrapers/parsed_data') do
+          allow_any_instance_of(described_class).to receive(:collect_data_for).and_raise("this error")
+          expect { parser.data }.to_not raise_error
+        end
+      end
+    end
   end
 end

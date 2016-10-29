@@ -14,32 +14,37 @@ module Scrapers
       end
 
       def data
-        collect_data
-      end
+        disease_data = build_disease_data
 
-      private
-
-      def collect_data
-        disease_data = {
-            name: disease_page.css('.headline').children.text.capitalize + ' - ' + DATA_SOURCE,
-            date_updated: disease_page.css('.meta span').text.split.last(2).join(" "),
-            facts: facts(disease_page),
-            more: "Source is http://www.who.int#{disease_link.attributes["href"].value}"
-        }
         disease_page.css('h3').each_with_index do |tag, index|
           CORE_ATTR.each do |attr|
             begin
-              if tag.text.downcase.include?(attr)
-                xpath_text = "//h3[text()=\'#{tag.text}\']/following::p[not(preceding::h3[text()=\'#{disease_page.css("h3")[index+1].text}\'])]".to_s
-                attr_text =  disease_page.xpath(xpath_text).text
-                disease_data[attr.to_sym] = attr_text
-              end
+              collect_data_for(attr, disease_data, tag, index)
             rescue
               next
             end
           end
         end
         disease_data
+      end
+
+      private
+
+      def collect_data_for(core_attribute, disease_data, tag, index)
+        if tag.text.downcase.include?(core_attribute)
+          xpath_text = "//h3[text()=\'#{tag.text}\']/following::p[not(preceding::h3[text()=\'#{disease_page.css("h3")[index+1].text}\'])]".to_s
+          attr_text =  disease_page.xpath(xpath_text).text
+          disease_data[core_attribute.to_sym] = attr_text
+        end
+      end
+
+      def build_disease_data
+        {
+          name: disease_page.css('.headline').children.text.capitalize + ' - ' + DATA_SOURCE,
+          date_updated: disease_page.css('.meta span').text.split.last(2).join(" "),
+          facts: facts(disease_page),
+          more: "Source is http://www.who.int#{disease_link.attributes["href"].value}"
+        }
       end
 
       def facts(disease_page)

@@ -52,5 +52,16 @@ describe Scrapers::Who::Parser do
         end
       end
     end
+
+    describe 'when got an error' do
+      it 'does not raise any error' do
+        VCR.use_cassette('who/scrapers/parser') do
+          allow_any_instance_of(Scrapers::Who::DiseaseParser)
+            .to receive(:data).and_raise("this error")
+
+          expect { described_class.perform }.to_not raise_error
+        end
+      end
+    end
   end
 end
