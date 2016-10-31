@@ -8,12 +8,10 @@ describe DiseasesController, type: :controller do
     context "with data_source param" do
 
       it "should assign disease with name like the specified param as disease" do
-        disease_name = diseases.last.name
-        disease_name.length.times do |n|
-          next if n<3
-          get :index, data_source: disease_name[0..n]
-          expect(assigns(:diseases)).to eq [diseases.last]
-        end
+        disease_name = diseases.last.name[0..3]
+
+        get :index, data_source: disease_name
+        expect(assigns(:diseases)).to eq [diseases.last]
       end
 
       it "should have a http success response" do
@@ -39,12 +37,10 @@ describe DiseasesController, type: :controller do
 
   describe "GET#show" do
     it "should assign disease with name like the specified param as disease" do
-      disease_name = diseases.last.name
-      disease_name.length.times do |n|
-        next if n<3
-        get :show, disease: disease_name[0..n]
-        expect(assigns(:disease)).to eq diseases.last
-      end
+      disease_name = diseases.last.name[0..3]
+
+      get :show, disease: disease_name
+      expect(assigns(:disease)).to eq diseases.last
     end
 
     it "should have a http success response" do
