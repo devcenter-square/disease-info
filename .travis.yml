@@ -6,7 +6,7 @@ deploy:
   provider: heroku
   api_key:
     secure: ENCRYPTED_HEROKU_API_KEY_HERE
+  run: "rake db:migrate"  
   app: disease-info-api
   on:
     repo: devcenter-square/disease-info
-    branch: develop
