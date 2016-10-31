@@ -22,7 +22,7 @@ module Scrapers
       private
 
       def disease_list_pages
-        @disiase_list_pages ||= Nokogiri::HTML(results).css(".auto_archive>li>a")
+        @disease_list_pages ||= Nokogiri::HTML(results).css(".auto_archive>li>a")
       end
 
       def request
