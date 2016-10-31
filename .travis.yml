@@ -1,3 +1,12 @@
 language: ruby
 rvm: 2.3.1
 bundler_args: --without production
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: ENCRYPTED_HEROKU_API_KEY_HERE
+  app: disease-info-api
+  on:
+    repo: devcenter-square/disease-info
+    branch: develop
