@@ -1,3 +1,12 @@
 language: ruby
 rvm: 2.3.1
 bundler_args: --without production
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: phTuJPARrvgXjjeXI6fq57U6J0M3wNCyO+0/dCJHsr8RHRilypDuaTo2ZjXdkw2qya4vk/0/sjB3EIjSyl7neFtW45eSjE9jIXCi55Ruxnq9pmEPHjC6A4X/rGeGwqpQFFrRi3J3QnJA1Do/wryHBApS9jcmNA8iJP15dB5vs0yTaxye4O0qszUT7Hqm+hTHQf35iFttuUKY22WMEraxrvu8sQ27E+dh8Y4uqT3j+RSFzK/CjD7mYJtVeLCrcUScOvR3HApsgnKbl+JqvYtAYT+taa/Rf75iZcreCnYtDWUcOAg2Rc/G6diF3d3faqCsXtLkUhazBhPhhHJRQzAAtHJoWvbvU4qfbpBGR6JU5bG0yORXAfr+cbjr7gjH8fo3WDiwRxSKvVxqMOq/ChdiMn3k/NC46jGV+bKWWRQr79As3rlirLp+AdTntYb0eWvA/sNqqKwG5Ml5mTjHIgvLzXjDdcjzk1VFVEukFaQHLoAhCc8+5bz4Cv5AP04PRjo0CvqOUQQWfexvzBBlwZ+h5daHo1sPVKKj4otAWJFrcNZCPva/EFDpYRYrlKrproaG/byC+WoSC337D+Y68LgDk/Hztt7YHlDuIJ/gohBCiLCPR0vxn1UcslQJ0HJLD8IBuGFo1YmJibTekAxXONw0N2mAUcNwLj4DD+yXJFDUrTc=
+  run: rake db:migrate
+  app: disease-info-api
+  on:
+    repo: devcenter-square/disease-info
