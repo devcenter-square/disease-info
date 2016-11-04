@@ -56,7 +56,7 @@ Make sure to name space your Disease name with the source. For example Malaria f
 | /diseases/disease_name.json        |  GET        |  Gets a particular disease with the supplied name                              |
 
 ## Road Map
-This will be the first release and we are tagging it v1.0. To see it live, go to https://disease-info-api.herokuapp.com/diseases. For specific a specific disease, use https://disease-info-api.herokuapp.com/diseases/tuberculosis. Also if you are using Chrome to access the site you could install [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en) to get a prettier display.
+This will be the first release and we are tagging it v1.0. To see it live, go to https://disease-info-api.herokuapp.com/diseases. For specific a specific disease, use https://disease-info-api.herokuapp.com/diseases/tuberculosis. Also Disease-info prettifies JSON on production, however if you want JSON prettified on develoment environment and you are using Chrome to access the API you could install [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en) to get a prettier display.
 
 ### To Do
 First see the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md) for how to contribute.
