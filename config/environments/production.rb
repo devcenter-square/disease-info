@@ -11,10 +11,8 @@ Rails.application.configure do
   config.eager_load = true
 
   
-  # This full error reports is moved to application.rb to handle both environments.
-  # config.consider_all_requests_local = false
-  
-  #  Caching is turned on.
+  # Full error reports are disabled and caching is turned on.
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
