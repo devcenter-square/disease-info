@@ -23,8 +23,5 @@ module DiseaseInfo
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.exceptions_app = self.routes
-    
-    # This disables the backtrace stuffs and renders custom methods.
-    config.consider_all_requests_local = false
   end
 end
