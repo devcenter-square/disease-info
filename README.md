@@ -58,6 +58,9 @@ Make sure to name space your Disease name with the source. For example Malaria f
 ## Road Map
 This will be the first release and we are tagging it v1.0. To see it live, go to https://disease-info-api.herokuapp.com/diseases. For specific a specific disease, use https://disease-info-api.herokuapp.com/diseases/tuberculosis. Also Disease-info prettifies JSON on production, however if you want JSON prettified on develoment environment and you are using Chrome to access the API you could install [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en) to get a prettier display.
 
+## Disease Info Prettified JSON
+This project prettifies json response on production. To see prettified json on development, uncomment the JSON Prettifier configuration in `development.rb`. However, that will DRY the project and you are advised to move the configuration to `application.rb` to respond to both envronments.
+
 ### To Do
 First see the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md) for how to contribute.
 - [ ] Add more Health Organizations' disease information sites
