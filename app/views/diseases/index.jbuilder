@@ -9,4 +9,5 @@ json.diseases @diseases do |disease|
   json.treatment disease.treatment
   json.prevention disease.prevention
   json.more disease.more
+  json.is_active disease.is_active
 end
