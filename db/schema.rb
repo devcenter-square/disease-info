@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160530074939) do
+ActiveRecord::Schema.define(version: 20161027162839) do
 
   create_table "diseases", force: :cascade do |t|
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "name"
     t.string   "date_updated"
     t.text     "facts"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160530074939) do
     t.text     "treatment"
     t.text     "prevention"
     t.text     "more"
+    t.boolean  "is_active",    default: true
   end
 
 end

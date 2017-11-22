@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root :to => 'diseases#index'
   resources :diseases, param: :disease
+  put '/diseases/:disease/set_active_status', to: 'diseases#set_active_status'
 
   get "/diseases/:disease/:attribute" => 'diseases#show_attr'
 
