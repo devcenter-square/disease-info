@@ -19,31 +19,26 @@ class DiseasesController < ApplicationController
     @disease.update_attribute(:is_active, is_active)
   end
 
+  def show_attr
+    column = permitted_params[:attribute].downcase
+    disease = permitted_params[:disease].downcase
+    if valid?(column)
+      @disease_attr = Disease.select(column.to_sym).where("lower(name) LIKE?", "%#{disease}%").first
+    else
+      render json: {}, status: :not_found
+    end
+  end
+
   private
   def set_disease
     @disease = Disease.where("lower(name) LIKE?", "%#{permitted_params[:disease].downcase}%").first
-  end
-
-  def show_attr
-    if valid?(permitted_params[:attribute].downcase)
-      @disease_attr = Disease.where("lower(name) LIKE?", "%#{permitted_params[:disease].downcase}%").select("id, #{permitted_params[:attribute].downcase}").first
-    else
-      render json: {} , status: :not_found
-    end
   end
 
   def permitted_params
     params.permit(:disease, :data_source, :attribute)
   end
 
-  private
-
   def valid?(column)
-    if Disease.column_names.include?(column) or ["created_at", "update_at"].include?(column)
-      attr = true
-    else
-      attr = false
-    end
-    attr
+    Disease.column_names.include? column
   end
 end

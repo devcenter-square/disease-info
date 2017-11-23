@@ -6,7 +6,6 @@ describe DiseasesController, type: :controller do
 
   describe "GET#index" do
     context "with data_source param" do
-
       it "should assign disease with name like the specified param as disease" do
         disease_name = diseases.last.name[0..3]
 
@@ -53,13 +52,15 @@ describe DiseasesController, type: :controller do
     context "with valid attributes" do
       before :each do
         @disease = diseases.last
-        @column = Disease.column_names.sample
       end
 
       it "renders a JSON response" do
-        get :show_attr, :disease => @disease.name, :attribute => @column
-        expect(response.content_type).to eq('application/json')
-        expect(response).to have_http_status(:ok)
+        Disease.column_names.each do |column|
+          get :show_attr, :disease => @disease.name, :attribute => column
+          expect(response.content_type).to eq('application/json')
+          expect(response).to have_http_status(:ok)
+          expect(assigns(:disease_attr).send(column)).to eq @disease.send(column)
+        end
       end
     end
 
@@ -69,7 +70,7 @@ describe DiseasesController, type: :controller do
       end
 
       it "returns 404 status code" do
-        get :show_attr, :disease => @disease.name, :attribute => "unexistent"
+        get :show_attr, :disease => @disease.name, :attribute => "inexistent"
         expect(response.content_type).to eq('application/json')
         expect(response).to have_http_status(:not_found)
       end
