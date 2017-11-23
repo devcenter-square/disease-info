@@ -36,9 +36,11 @@ describe DiseasesController, type: :controller do
 
   describe "GET#show" do
     it "should assign disease with name like the specified param as disease" do
-      disease_name = diseases.last.name[0..3]
+      disease = diseases.last
+      disease.update(name: 'macapolo virus')
 
-      get :show, disease: disease_name
+
+      get :show, disease: 'macapol'
       expect(assigns(:disease)).to eq diseases.last
     end
 
@@ -56,6 +58,7 @@ describe DiseasesController, type: :controller do
 
       it "renders a JSON response" do
         Disease.column_names.each do |column|
+          next if ['created_at', 'updated_at'].include? column
           get :show_attr, :disease => @disease.name, :attribute => column
           expect(response.content_type).to eq('application/json')
           expect(response).to have_http_status(:ok)
