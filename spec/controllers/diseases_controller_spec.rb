@@ -49,6 +49,33 @@ describe DiseasesController, type: :controller do
     end
   end
 
+  describe "GET#show_attr" do
+    context "with valid attributes" do
+      before :each do
+        @disease = diseases.last
+        @column = Disease.column_names.sample
+      end
+
+      it "renders a JSON response" do
+        get :show_attr, :disease => @disease.name, :attribute => @column
+        expect(response.content_type).to eq('application/json')
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context "with invalid attributes" do
+      before :each do
+        @disease = diseases.last
+      end
+
+      it "returns 404 status code" do
+        get :show_attr, :disease => @disease.name, :attribute => "unexistent"
+        expect(response.content_type).to eq('application/json')
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe "PUT#set_active_status" do
     it "should update disease to non-active when param is set to false or zero or empty" do
       [false, nil].each do |value|
