@@ -21,6 +21,6 @@ module DiseaseInfo
     # config.i18n.default_locale = :de
 
     config.exceptions_app = self.routes
-    config.load_defaults 7.0
+    config.load_defaults 7.1
   end
 end

@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     if env["REQUEST_PATH"] =~ /^\/api/
       render json: {error: "internal-server-error"}.to_json, status: 422
     else
-      render text: "The change you wanted was rejected. Try to change only what to have access to", status: 422 
+      render plain: "The change you wanted was rejected. Try to change only what to have access to", status: 422
     end
   end
 end
