@@ -49,6 +49,7 @@ module Scrapers
 
         {
           name: "#{title} - #{DATA_SOURCE}",
+          data_source: DATA_SOURCE,
           date_updated: date_str,
           facts: facts(disease_page),
           more: "Source is https://www.who.int#{href}"

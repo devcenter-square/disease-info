@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2016_10_27_162839) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_22_100000) do
   create_table "diseases", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -24,6 +24,8 @@ ActiveRecord::Schema[7.1].define(version: 2016_10_27_162839) do
     t.text "prevention"
     t.text "more"
     t.boolean "is_active", default: true
+    t.decimal "prevalence", precision: 10, scale: 6
+    t.string "data_source"
   end
 
 end

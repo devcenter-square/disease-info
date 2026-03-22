@@ -3,7 +3,7 @@ class DiseasesController < ApplicationController
 
   def index
     if permitted_params.include?(:data_source)
-      @diseases = Disease.where("lower(name) LIKE?", "%#{permitted_params[:data_source].downcase}%")
+      @diseases = Disease.by_source(permitted_params[:data_source].upcase)
     else
       @diseases = Disease.all
     end
