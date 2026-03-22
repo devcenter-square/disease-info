@@ -1,5 +1,6 @@
 class DiseasesController < ApplicationController
-  before_action :set_disease, only: [:show, :set_active_status]
+  before_action :set_disease, only: [:show]
+  before_action :set_disease_exact, only: [:set_active_status]
 
   def index
     if permitted_params.include?(:data_source)
@@ -31,6 +32,10 @@ class DiseasesController < ApplicationController
   private
   def set_disease
     @disease = Disease.where("lower(name) LIKE ?", "%#{Disease.sanitize_sql_like(permitted_params[:disease].downcase)}%").first
+  end
+
+  def set_disease_exact
+    @disease = Disease.find_by("lower(name) = ?", permitted_params[:disease].downcase)
   end
 
   def permitted_params
