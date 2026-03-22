@@ -24,7 +24,7 @@ module Scrapers
       private
 
       def raw_response
-        open(request.url, 'User-Agent' => 'ruby')
+        URI.open(request.url, 'User-Agent' => 'ruby')
       end
     end
   end

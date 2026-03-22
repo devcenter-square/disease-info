@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
-ruby '2.7.8'
+ruby '3.2.10'
 
 # Bundle gems for development with the command below.
 # bundle install --without production
 
 gem 'rails', '~> 7.1.0'
-gem 'nokogiri', '~> 1.15.0'
+gem 'nokogiri', '>= 1.19.1'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'jbuilder', '~> 2.11'
 gem 'responders', '~> 3.0'

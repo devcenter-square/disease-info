@@ -9,7 +9,7 @@ describe Scrapers::Who::Response do
     it 'calls open method' do
       VCR.use_cassette('who/scrapers/response_results') do
         allow_any_instance_of(described_class).to receive(:status).and_return(200)
-        expect(response).to receive(:open).with(url, {"User-Agent"=>"ruby"})
+        expect(URI).to receive(:open).with(url, {"User-Agent"=>"ruby"})
         response.results
       end
     end
