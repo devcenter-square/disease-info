@@ -30,6 +30,7 @@ end
 group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'spring'
+  gem 'puma'
 end
 
 group :production do

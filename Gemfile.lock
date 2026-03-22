@@ -171,6 +171,8 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
+    puma (7.2.0)
+      nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.5)
     rack-cors (3.0.0)
@@ -295,6 +297,7 @@ DEPENDENCIES
   pg (~> 1.2)
   pry
   pry-rails
+  puma
   rack-cors
   rails (~> 7.1.0)
   rails-controller-testing
