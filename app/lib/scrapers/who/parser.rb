@@ -22,7 +22,7 @@ module Scrapers
       private
 
       def disease_list_pages
-        @disease_list_pages ||= Nokogiri::HTML(results).css(".auto_archive>li>a")
+        @disease_list_pages ||= Nokogiri::HTML(results).css("a[href*='/news-room/fact-sheets/detail/']")
       end
 
       def request
@@ -30,7 +30,7 @@ module Scrapers
       end
 
       def url
-        'http://www.who.int/topics/infectious_diseases/factsheets/en/'
+        'https://www.who.int/news-room/fact-sheets'
       end
     end
   end

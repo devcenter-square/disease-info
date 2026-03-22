@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.7.8'
 
 # Bundle gems for development with the command below.
 # bundle install --without production
@@ -12,7 +12,7 @@ gem 'jbuilder-prettify', '~> 0.0.1'
 
 group :development, :test do
   gem 'pry'
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.5.0'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails'

@@ -16,7 +16,7 @@ module Scrapers
       def data
         disease_data = build_disease_data
 
-        disease_page.css('h3').each_with_index do |tag, index|
+        disease_page.css('h2').each_with_index do |tag, index|
           CORE_ATTR.each do |attr|
             begin
               collect_data_for(attr, disease_data, tag, index)
@@ -32,35 +32,52 @@ module Scrapers
 
       def collect_data_for(core_attribute, disease_data, tag, index)
         if tag.text.downcase.include?(core_attribute)
-          xpath_text = "//h3[text()=\'#{tag.text}\']/following::p[not(preceding::h3[text()=\'#{disease_page.css("h3")[index+1].text}\'])]".to_s
-          attr_text =  disease_page.xpath(xpath_text).text
+          next_h2 = disease_page.css('h2')[index + 1]
+          if next_h2
+            xpath_text = "//h2[contains(text(),'#{tag.text}')]/following::p[not(preceding::h2[contains(text(),'#{next_h2.text}')])]"
+          else
+            xpath_text = "//h2[contains(text(),'#{tag.text}')]/following::p"
+          end
+          attr_text = disease_page.xpath(xpath_text).text
           disease_data[core_attribute.to_sym] = attr_text
         end
       end
 
       def build_disease_data
+        title = disease_page.css('h1').text.strip
+        date_el = disease_page.css('meta[name="date"]').first
+        date_str = date_el ? date_el['content'] : ''
+
         {
-          name: disease_page.css('.headline').children.text.capitalize + ' - ' + DATA_SOURCE,
-          date_updated: disease_page.css('.meta span').text.split.last(2).join(" "),
+          name: "#{title} - #{DATA_SOURCE}",
+          date_updated: date_str,
           facts: facts(disease_page),
-          more: "Source is http://www.who.int#{disease_link.attributes["href"].value}"
+          more: "Source is https://www.who.int#{href}"
         }
       end
 
       def facts(disease_page)
-        parsed_lists = disease_page.at('h3:contains("Key facts")').try(:next_element)
-        if parsed_lists && (lists = parsed_lists.search("li")).present?
-          result = lists.inject([]) { |facts, list| facts << list.text.strip }
-        end
-        return result
+        key_facts_heading = disease_page.css('h2, h3').find { |h| h.text.downcase.include?('key fact') }
+        return [] unless key_facts_heading
+
+        next_section = key_facts_heading.parent.next_sibling
+        next_section = next_section.next_sibling while next_section && next_section.text.strip.empty?
+        return [] unless next_section
+
+        lists = next_section.css('li')
+        lists.map(&:text).map(&:strip)
       end
 
       def disease_page
         @disease_data_page ||= Nokogiri::HTML(results)
       end
 
+      def href
+        disease_link.is_a?(String) ? disease_link : disease_link.attributes['href'].value
+      end
+
       def request
-        @request ||= Scrapers::Who::Request.new("http://www.who.int#{disease_link.attributes["href"].value}")
+        @request ||= Scrapers::Who::Request.new("https://www.who.int#{href}")
       end
     end
   end
