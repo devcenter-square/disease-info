@@ -57,10 +57,36 @@ describe Scrapers::Who::DiseaseParser do
       expect(data[:name]).to eq('Lassa fever - WHO')
     end
 
-    it 'parses core attributes from HTML' do
+    it 'parses core attributes from HTML as arrays' do
       data = parser.data
-      expect(data[:symptoms]).to include('Fever and headache')
-      expect(data[:transmission]).to include('Contact with rodents')
+      expect(data[:symptoms]).to eq(['Fever and headache'])
+      expect(data[:transmission]).to eq(['Contact with rodents'])
+      expect(data[:diagnosis]).to eq(['Lab testing'])
+      expect(data[:treatment]).to eq(['Supportive care'])
+      expect(data[:prevention]).to eq(['Avoid rodent contact'])
+    end
+
+    context 'with multiple paragraphs per section' do
+      let(:disease_html) do
+        <<~HTML
+          <html>
+            <head><meta name="date" content="March 2016"></head>
+            <body>
+              <h1>Test disease</h1>
+              <h2>Symptoms</h2>
+              <p>First symptom</p>
+              <p>Second symptom</p>
+              <h2>Transmission</h2>
+              <p>Airborne</p>
+            </body>
+          </html>
+        HTML
+      end
+
+      it 'returns each paragraph as a separate array element' do
+        data = parser.data
+        expect(data[:symptoms]).to eq(['First symptom', 'Second symptom'])
+      end
     end
 
     describe 'when parsed data has invalid data' do
