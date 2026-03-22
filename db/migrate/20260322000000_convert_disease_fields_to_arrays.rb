@@ -1,29 +1,39 @@
 class ConvertDiseaseFieldsToArrays < ActiveRecord::Migration[7.1]
-  FIELDS = %i[symptoms transmission diagnosis treatment prevention].freeze
+  FIELDS = %w[symptoms transmission diagnosis treatment prevention].freeze
 
   def up
-    Disease.find_each do |disease|
-      updates = {}
+    rows = execute("SELECT id, #{FIELDS.join(', ')} FROM diseases")
+    rows.each do |row|
+      sets = []
       FIELDS.each do |field|
-        value = disease.read_attribute_before_type_cast(field)
+        value = row[field]
         next if value.blank? || value.start_with?("---")
 
-        updates[field] = [value]
+        yaml = YAML.dump([value])
+        sets << "#{field} = #{connection.quote(yaml)}"
       end
-      disease.update_columns(updates) if updates.any?
+      execute("UPDATE diseases SET #{sets.join(', ')} WHERE id = #{row['id']}") if sets.any?
     end
   end
 
   def down
-    Disease.find_each do |disease|
-      updates = {}
+    rows = execute("SELECT id, #{FIELDS.join(', ')} FROM diseases")
+    rows.each do |row|
+      sets = []
       FIELDS.each do |field|
-        value = disease.send(field)
-        next unless value.is_a?(Array)
+        value = row[field]
+        next if value.blank?
 
-        updates[field] = value.join("\n\n")
+        parsed = begin
+          YAML.safe_load(value, permitted_classes: [Symbol])
+        rescue StandardError
+          nil
+        end
+        next unless parsed.is_a?(Array)
+
+        sets << "#{field} = #{connection.quote(parsed.join("\n\n"))}"
       end
-      disease.update_columns(updates) if updates.any?
+      execute("UPDATE diseases SET #{sets.join(', ')} WHERE id = #{row['id']}") if sets.any?
     end
   end
 end

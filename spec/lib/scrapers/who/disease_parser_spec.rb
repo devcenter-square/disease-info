@@ -66,6 +66,29 @@ describe Scrapers::Who::DiseaseParser do
       expect(data[:prevention]).to eq(['Avoid rodent contact'])
     end
 
+    context 'with multiple paragraphs per section' do
+      let(:disease_html) do
+        <<~HTML
+          <html>
+            <head><meta name="date" content="March 2016"></head>
+            <body>
+              <h1>Test disease</h1>
+              <h2>Symptoms</h2>
+              <p>First symptom</p>
+              <p>Second symptom</p>
+              <h2>Transmission</h2>
+              <p>Airborne</p>
+            </body>
+          </html>
+        HTML
+      end
+
+      it 'returns each paragraph as a separate array element' do
+        data = parser.data
+        expect(data[:symptoms]).to eq(['First symptom', 'Second symptom'])
+      end
+    end
+
     describe 'when parsed data has invalid data' do
       before do
         allow_any_instance_of(described_class).to receive(:collect_data_for).and_raise(StandardError, "bad html")

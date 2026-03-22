@@ -37,7 +37,7 @@ module Scrapers
           else
             xpath_text = "//h2[contains(text(),'#{tag.text}')]/following::p"
           end
-          attr_text = disease_page.xpath(xpath_text).map { |p| p.text.strip }.reject(&:empty?)
+          attr_text = disease_page.xpath(xpath_text).map { |p| p.text.strip }.reject(&:blank?)
           disease_data[core_attribute.to_sym] = attr_text
         end
       end
