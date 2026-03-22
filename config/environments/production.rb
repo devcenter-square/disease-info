@@ -83,5 +83,5 @@ Rails.application.configure do
 
   # Do not dump schema after migrations
   config.active_record.dump_schema_after_migration = false
-  config.jbuilder.prettify = true
+  Jbuilder.prettify = true if defined?(Jbuilder)
 end
