@@ -57,10 +57,13 @@ describe Scrapers::Who::DiseaseParser do
       expect(data[:name]).to eq('Lassa fever - WHO')
     end
 
-    it 'parses core attributes from HTML' do
+    it 'parses core attributes from HTML as arrays' do
       data = parser.data
-      expect(data[:symptoms]).to include('Fever and headache')
-      expect(data[:transmission]).to include('Contact with rodents')
+      expect(data[:symptoms]).to eq(['Fever and headache'])
+      expect(data[:transmission]).to eq(['Contact with rodents'])
+      expect(data[:diagnosis]).to eq(['Lab testing'])
+      expect(data[:treatment]).to eq(['Supportive care'])
+      expect(data[:prevention]).to eq(['Avoid rodent contact'])
     end
 
     describe 'when parsed data has invalid data' do
