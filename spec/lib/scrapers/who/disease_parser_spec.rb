@@ -36,7 +36,7 @@ describe Scrapers::Who::DiseaseParser do
   let(:disease_link) { '/news-room/fact-sheets/detail/lassa-fever' }
   let(:parser) { described_class.new(disease_link) }
   let(:keys) do
-    [:name, :date_updated, :facts, :more, :symptoms, :transmission, :diagnosis,
+    [:name, :data_source, :date_updated, :facts, :more, :symptoms, :transmission, :diagnosis,
       :treatment, :prevention]
   end
 

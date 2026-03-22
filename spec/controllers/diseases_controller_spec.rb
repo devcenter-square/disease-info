@@ -6,15 +6,17 @@ describe DiseasesController, type: :controller do
 
   describe "GET#index" do
     context "with data_source param" do
-      it "should assign disease with name like the specified param as disease" do
-        disease_name = diseases.last.name[0..3]
+      it "should assign diseases matching the specified data source" do
+        who_disease = create(:disease, data_source: 'WHO')
+        orphanet_disease = create(:disease, :orphanet)
 
-        get :index, params: { data_source: disease_name }
-        expect(assigns(:diseases)).to eq [diseases.last]
+        get :index, params: { data_source: 'WHO' }
+        expect(assigns(:diseases)).to include(who_disease)
+        expect(assigns(:diseases)).not_to include(orphanet_disease)
       end
 
       it "should have a http success response" do
-        get :index, params: { data_source: diseases.last.name }
+        get :index, params: { data_source: 'WHO' }
         expect(response.status).to be 200
       end
     end
