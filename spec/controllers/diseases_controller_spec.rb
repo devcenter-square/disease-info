@@ -9,12 +9,12 @@ describe DiseasesController, type: :controller do
       it "should assign disease with name like the specified param as disease" do
         disease_name = diseases.last.name[0..3]
 
-        get :index, data_source: disease_name
+        get :index, params: { data_source: disease_name }
         expect(assigns(:diseases)).to eq [diseases.last]
       end
 
       it "should have a http success response" do
-        get :index, data_source: diseases.last.name
+        get :index, params: { data_source: diseases.last.name }
         expect(response.status).to be 200
       end
     end
@@ -40,12 +40,12 @@ describe DiseasesController, type: :controller do
       disease.update(name: 'macapolo virus')
 
 
-      get :show, disease: 'macapol'
+      get :show, params: { disease: 'macapol' }
       expect(assigns(:disease)).to eq diseases.last
     end
 
     it "should have a http success response" do
-      get :show, disease: diseases.last.name
+      get :show, params: { disease: diseases.last.name }
       expect(response.status).to be 200
     end
   end
@@ -59,8 +59,8 @@ describe DiseasesController, type: :controller do
       it "renders a JSON response" do
         Disease.column_names.each do |column|
           next if ['created_at', 'updated_at'].include? column
-          get :show_attr, :disease => @disease.name, :attribute => column
-          expect(response.content_type).to eq('application/json')
+          get :show_attr, params: { disease: @disease.name, attribute: column }
+          expect(response.content_type).to eq('application/json; charset=utf-8')
           expect(response).to have_http_status(:ok)
           expect(assigns(:disease_attr).send(column)).to eq @disease.send(column)
         end
@@ -73,8 +73,8 @@ describe DiseasesController, type: :controller do
       end
 
       it "returns 404 status code" do
-        get :show_attr, :disease => @disease.name, :attribute => "inexistent"
-        expect(response.content_type).to eq('application/json')
+        get :show_attr, params: { disease: @disease.name, attribute: "inexistent" }
+        expect(response.content_type).to eq('application/json; charset=utf-8')
         expect(response).to have_http_status(:not_found)
       end
     end
@@ -85,7 +85,7 @@ describe DiseasesController, type: :controller do
       [false, nil].each do |value|
         # disease is_active is true by default
         disease = create(:disease)
-        put :set_active_status, disease: disease.name, is_active: value
+        put :set_active_status, params: { disease: disease.name, is_active: value }
         expect(disease.reload.is_active).to eq false
       end
     end
@@ -93,7 +93,7 @@ describe DiseasesController, type: :controller do
     it "should update disease to active when given a truthy value" do
       [true, 'true'].each do |value|
         disease = create(:disease, is_active: false)
-        put :set_active_status, disease: disease.name, is_active: value
+        put :set_active_status, params: { disease: disease.name, is_active: value }
         expect(disease.reload.is_active).to eq true
       end
     end

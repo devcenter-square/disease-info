@@ -1,4 +1,4 @@
-class AddColumnsToDisease < ActiveRecord::Migration
+class AddColumnsToDisease < ActiveRecord::Migration[4.2]
   def change
     add_column :diseases, :name, :string
     add_column :diseases, :date_updated, :string

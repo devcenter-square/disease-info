@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :disease do
     name { Faker::Lorem.word }
     facts { [Faker::Lorem.sentence] }

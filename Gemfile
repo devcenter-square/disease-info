@@ -4,21 +4,21 @@ ruby '2.7.8'
 # Bundle gems for development with the command below.
 # bundle install --without production
 
-gem 'rails', '4.2.5.1'
+gem 'rails', '~> 7.1.0'
+gem 'nokogiri', '~> 1.15.0'
 gem 'rack-cors', :require => 'rack/cors'
-gem 'jbuilder', '~> 2.0'
-gem 'responders', '~> 2.0'
-gem 'jbuilder-prettify', '~> 0.0.1'
+gem 'jbuilder', '~> 2.11'
+gem 'responders', '~> 3.0'
 
 group :development, :test do
   gem 'pry'
   gem 'sqlite3', '~> 1.5.0'
   gem 'pry-rails'
-  gem 'rspec-rails', '~> 3.5'
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
+  gem 'rspec-rails', '~> 6.0'
+  gem 'rails-controller-testing'
+  gem 'factory_bot_rails'
+  gem 'database_cleaner-active_record'
   gem 'faker'
-  gem 'spec_writer'
 end
 
 group :test do
@@ -28,12 +28,12 @@ group :test do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '>= 4.1.0'
   gem 'spring'
 end
 
 group :production do
-  gem "pg", "~> 0.15"
+  gem "pg", "~> 1.2"
   gem "rails_12factor"
 end
 
