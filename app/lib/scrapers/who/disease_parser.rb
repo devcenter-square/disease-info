@@ -18,11 +18,10 @@ module Scrapers
 
         disease_page.css('h2').each_with_index do |tag, index|
           CORE_ATTR.each do |attr|
-            begin
-              collect_data_for(attr, disease_data, tag, index)
-            rescue
-              next
-            end
+            collect_data_for(attr, disease_data, tag, index)
+          rescue StandardError => e
+            Rails.logger.warn("[WHO DiseaseParser] Failed to parse '#{attr}' for #{disease_data[:name]}: #{e.message}")
+            next
           end
         end
         disease_data
