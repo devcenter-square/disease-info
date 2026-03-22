@@ -1,6 +1,13 @@
-# Disease Info [![Build Status](https://travis-ci.org/devcenter-square/disease-info.svg?branch=develop)](https://travis-ci.org/devcenter-square/disease-info) [![Code Climate](https://codeclimate.com/github/devcenter-square/disease-info/badges/gpa.svg)](https://codeclimate.com/github/devcenter-square/disease-info) [![Test Coverage](https://codeclimate.com/github/devcenter-square/disease-info/badges/coverage.svg)](https://codeclimate.com/github/devcenter-square/disease-info/coverage)
+# Disease Info [![Code Climate](https://codeclimate.com/github/devcenter-square/disease-info/badges/gpa.svg)](https://codeclimate.com/github/devcenter-square/disease-info) [![Test Coverage](https://codeclimate.com/github/devcenter-square/disease-info/badges/coverage.svg)](https://codeclimate.com/github/devcenter-square/disease-info/coverage)
 
-This project is basically for getting information about diseases from Health Organizations -  WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md).
+This project is basically for getting information about diseases from Health Organizations - WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md).
+
+## Requirements
+
+- Ruby 3.2.10
+- Rails 7.1
+- SQLite3 (development/test)
+- PostgreSQL (production)
 
 ## Getting Started
 
@@ -24,8 +31,8 @@ If you don't have it installed, check the following links for guides on how to i
 
 * `cd` into the project directory.
 * Run `bundle install`
-* then `rake db:create`
-* then `rake db:migrate`
+* then `rails db:create`
+* then `rails db:migrate`
 
 ## Populating the Database
 
@@ -33,13 +40,13 @@ Populate Database with disease info by running
 
 `rake mine_data:who`
 
-When this is done, visit  the endpoint for diseases on [http://localhost:3000/diseases.json](http://localhost:3000/diseases.json) to get a list of all diseases on your database.
+When this is done, visit the endpoint for diseases on [http://localhost:3000/diseases](http://localhost:3000/diseases) to get a list of all diseases on your database.
 
 ## Adding a new data scraper
 
 The present scrapers are:
 
-* WHO, collects data from [WHO's Infectious diseases page](http://www.who.int/topics/infectious_diseases/factsheets/en/)
+* WHO, collects data from [WHO's Fact Sheets page](https://www.who.int/news-room/fact-sheets)
 
 Feel free to add another scraper by first adding your rake task to the present list on `lib/tasks/mine_data.rake`.
 Then create your scraper in `app/lib/scrapers`. You can follow the example of the WHO scraper.
@@ -49,14 +56,17 @@ Make sure to name space your Disease name with the source. For example Malaria f
 
 ## Available End Points
 
-| End Point                          | Method      |  Expected response                                                             |
-| ---------------------------------- |:-----------:|--------------------------------------------------------------------------------|
-| /diseases.json                     |  GET        |  Gets a list of all diseases                                                   |
-| /diseases.json?data_source=source  |  GET        |  Gets a list of diseases from a particular source. Available sources are; WHO  |
-| /diseases/disease_name.json        |  GET        |  Gets a particular disease with the supplied name                              |
+| End Point                               | Method | Expected response                                                            |
+| --------------------------------------- |:------:|------------------------------------------------------------------------------|
+| /diseases                               | GET    | Gets a list of all diseases                                                  |
+| /diseases?data_source=source            | GET    | Gets a list of diseases from a particular source. Available sources are: WHO |
+| /diseases/:disease                      | GET    | Gets a particular disease with the supplied name                             |
+| /diseases/:disease/:attribute           | GET    | Gets a specific attribute of a disease (e.g. symptoms, treatment)           |
+| /diseases/:disease/set_active_status    | PUT    | Sets the active status of a disease (is_active: true/false)                 |
 
 ## Road Map
-This will be the first release and we are tagging it v1.0. To see it live, go to https://disease-info-api.herokuapp.com/diseases. For specific a specific disease, use https://disease-info-api.herokuapp.com/diseases/tuberculosis. Also Disease-info prettifies JSON on production, however if you want JSON prettified on develoment environment and you are using Chrome to access the API you could install [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en) to get a prettier display.
+
+To see it live, visit the deployed API. For a specific disease, use `/diseases/tuberculosis`. Disease-info prettifies JSON on production; if you want JSON prettified in development and you are using Chrome, you could install [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en) to get a prettier display.
 
 ### To Do
 First see the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md) for how to contribute.
