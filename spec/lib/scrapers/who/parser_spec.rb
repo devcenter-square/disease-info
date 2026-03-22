@@ -7,11 +7,11 @@ describe Scrapers::Who::Parser do
       :date_updated=> "March 2016",
       :facts=> ["facts test"],
       :more=>"Source is https://www.who.int/news-room/fact-sheets/detail/lassa-fever",
-      :symptoms=> "test",
-      :transmission=> "test",
-      :diagnosis=> "test",
-      :treatment=> "test",
-      :prevention=> "test"
+      :symptoms=> ["test"],
+      :transmission=> ["test"],
+      :diagnosis=> ["test"],
+      :treatment=> ["test"],
+      :prevention=> ["test"]
      }
   end
 

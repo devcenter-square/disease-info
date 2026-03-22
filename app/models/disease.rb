@@ -1,12 +1,12 @@
 class Disease < ActiveRecord::Base
-  validates_presence_of :name
+  validates :name, presence: true
 
-  serialize :facts, type: Array
-  serialize :symptoms, type: Array
-  serialize :transmission, type: Array
-  serialize :diagnosis, type: Array
-  serialize :treatment, type: Array
-  serialize :prevention, type: Array
+  serialize :facts, type: Array, coder: YAML
+  serialize :symptoms, type: Array, coder: YAML
+  serialize :transmission, type: Array, coder: YAML
+  serialize :diagnosis, type: Array, coder: YAML
+  serialize :treatment, type: Array, coder: YAML
+  serialize :prevention, type: Array, coder: YAML
 
   scope :active, -> { where(is_active: true) }
   scope :inactive, -> { where(is_active: false) }
