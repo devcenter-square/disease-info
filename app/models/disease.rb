@@ -1,6 +1,6 @@
 class Disease < ActiveRecord::Base
   validates_presence_of :name
-  validates :data_source, inclusion: { in: %w[WHO ORPHANET], allow_nil: true }
+  validates :data_source, inclusion: { in: %w[WHO ORPHANET] }, allow_blank: true
 
   serialize :facts, type: Array
   serialize :symptoms, type: Array

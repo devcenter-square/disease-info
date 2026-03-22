@@ -12,13 +12,11 @@ module Scrapers
       end
 
       def results
-        raise NotAuthorized if status == 403
-
         raw_response
-      end
+      rescue OpenURI::HTTPError => e
+        raise NotAuthorized if e.io.status[0] == '403'
 
-      def status
-        raw_response.status[0].to_i
+        raise
       end
 
       private

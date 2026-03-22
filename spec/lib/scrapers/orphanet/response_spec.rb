@@ -7,17 +7,28 @@ describe Scrapers::Orphanet::Response do
 
   describe '#results' do
     it 'calls URI.open with the request URL' do
-      allow_any_instance_of(described_class).to receive(:status).and_return(200)
       expect(URI).to receive(:open).with(url, { "User-Agent" => "ruby" })
       response.results
     end
 
     it 'raises NotAuthorized for a 403 status' do
-      allow_any_instance_of(described_class).to receive(:status).and_return(403)
+      io = double('io', status: ['403', 'Forbidden'])
+      error = OpenURI::HTTPError.new('403 Forbidden', io)
+      allow(URI).to receive(:open).and_raise(error)
 
       expect {
         response.results
       }.to raise_error(Scrapers::Orphanet::Response::NotAuthorized)
+    end
+
+    it 're-raises non-403 HTTP errors' do
+      io = double('io', status: ['500', 'Internal Server Error'])
+      error = OpenURI::HTTPError.new('500 Internal Server Error', io)
+      allow(URI).to receive(:open).and_raise(error)
+
+      expect {
+        response.results
+      }.to raise_error(OpenURI::HTTPError)
     end
   end
 end

@@ -3,6 +3,8 @@ module Scrapers
     class DiseaseParser
       DATA_SOURCE = 'ORPHANET'
 
+      # Maps Orphadata prevalence class text to cases per 100,000.
+      # Unmapped classes (e.g., "Not yet documented", "Unknown") return nil.
       PREVALENCE_CLASS_TO_PER_100K = {
         '>1 / 1000' => 200.0,
         '1-5 / 10 000' => 30.0,
