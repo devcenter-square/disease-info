@@ -4,13 +4,19 @@ module Scrapers
   module Orphanet
     class PageScraper
       BASE_URL = 'https://www.orpha.net/en/disease/detail'
+      USER_AGENT = 'DiseaseInfoBot/1.0 (disease-info scraper; +https://github.com/devcenter-square/disease-info)'
+      OPEN_TIMEOUT = 10
+      READ_TIMEOUT = 15
 
       # Maps Orphanet page section headings to our data model fields.
+      # Matched using exact (case-insensitive) comparison against heading text.
       SECTION_MAP = {
         'clinical description' => :symptoms,
         'diagnostic methods' => :diagnosis,
         'management and treatment' => :treatment
       }.freeze
+
+      HEADING_TAGS = %w[h2 h3 h4 h5 h6].freeze
 
       attr_reader :orpha_code
 
@@ -19,7 +25,7 @@ module Scrapers
       end
 
       def scrape
-        result = { facts: disease_definition, symptoms: [], diagnosis: [], treatment: [] }
+        result = { facts: extract_section('disease definition'), symptoms: [], diagnosis: [], treatment: [] }
 
         SECTION_MAP.each do |heading_text, field|
           result[field] = extract_section(heading_text)
@@ -34,60 +40,70 @@ module Scrapers
       private
 
       def page
-        @page ||= Nokogiri::HTML(URI.open("#{BASE_URL}/#{orpha_code}", 'User-Agent' => 'ruby'))
+        @page ||= Nokogiri::HTML(
+          URI.open(
+            "#{BASE_URL}/#{orpha_code}",
+            'User-Agent' => USER_AGENT,
+            open_timeout: OPEN_TIMEOUT,
+            read_timeout: READ_TIMEOUT
+          )
+        )
       end
 
-      def disease_definition
-        definition_heading = find_heading('disease definition')
-        return [] unless definition_heading
-
-        collect_paragraphs_after(definition_heading)
+      def headings
+        @headings ||= page.css(HEADING_TAGS.join(', '))
       end
 
       def extract_section(heading_text)
-        heading = find_heading(heading_text)
-        return [] unless heading
+        index = headings.index { |h| h.text.strip.downcase == heading_text }
+        return [] unless index
 
-        collect_paragraphs_after(heading)
+        heading = headings[index]
+        next_heading = headings[index + 1]
+
+        collect_content_between(heading, next_heading)
       end
 
-      def find_heading(text)
-        page.css('h2, h3, h4, h5, h6, strong, b').find do |el|
-          el.text.strip.downcase.include?(text)
+      def collect_content_between(heading, next_heading)
+        if next_heading
+          xpath = following_siblings_xpath(heading, next_heading)
+        else
+          xpath = "//#{heading.name}[normalize-space()='#{heading.text.strip}']/following-sibling::*"
         end
+
+        nodes = page.xpath(xpath)
+        extract_text_from_nodes(nodes)
       end
 
-      def collect_paragraphs_after(heading)
+      def following_siblings_xpath(heading, next_heading)
+        h_tag = heading.name
+        h_text = heading.text.strip
+        nh_tag = next_heading.name
+        nh_text = next_heading.text.strip
+
+        "//#{h_tag}[normalize-space()='#{h_text}']/following-sibling::*" \
+          "[not(self::#{nh_tag}[normalize-space()='#{nh_text}']) " \
+          "and not(preceding-sibling::#{nh_tag}[normalize-space()='#{nh_text}']" \
+          "[preceding-sibling::#{h_tag}[normalize-space()='#{h_text}']])]"
+      end
+
+      def extract_text_from_nodes(nodes)
         paragraphs = []
-        sibling = next_content_element(heading)
 
-        while sibling
-          break if heading_element?(sibling)
+        nodes.each do |node|
+          break if HEADING_TAGS.include?(node.name)
 
-          if sibling.name == 'p' || (sibling.name == 'div' && sibling.css('p').any?)
-            texts = sibling.css('p').any? ? sibling.css('p').map { |p| p.text.strip } : [sibling.text.strip]
-            paragraphs.concat(texts.reject(&:blank?))
-          elsif sibling.name == 'ul' || sibling.name == 'ol'
-            sibling.css('li').each { |li| paragraphs << li.text.strip unless li.text.strip.blank? }
+          case node.name
+          when 'p'
+            paragraphs << node.text.strip unless node.text.strip.empty?
+          when 'div'
+            node.css('p').each { |p| paragraphs << p.text.strip unless p.text.strip.empty? }
+          when 'ul', 'ol'
+            node.css('li').each { |li| paragraphs << li.text.strip unless li.text.strip.empty? }
           end
-
-          sibling = next_content_element(sibling)
         end
 
         paragraphs
-      end
-
-      def next_content_element(node)
-        current = node.next_sibling || node.parent&.next_sibling
-        current = current.next_sibling while current && current.text? && current.text.strip.empty?
-        current
-      end
-
-      def heading_element?(node)
-        return true if node.name.match?(/\Ah[2-6]\z/)
-        return true if %w[strong b].include?(node.name) && node.children.size <= 1
-
-        false
       end
     end
   end

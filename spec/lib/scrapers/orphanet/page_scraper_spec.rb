@@ -34,7 +34,12 @@ describe Scrapers::Orphanet::PageScraper do
 
   before do
     allow(URI).to receive(:open)
-      .with("#{described_class::BASE_URL}/#{orpha_code}", 'User-Agent' => 'ruby')
+      .with(
+        "#{described_class::BASE_URL}/#{orpha_code}",
+        'User-Agent' => described_class::USER_AGENT,
+        open_timeout: described_class::OPEN_TIMEOUT,
+        read_timeout: described_class::READ_TIMEOUT
+      )
       .and_return(html)
   end
 
@@ -44,8 +49,10 @@ describe Scrapers::Orphanet::PageScraper do
     end
 
     it 'extracts clinical description as symptoms' do
-      expect(scraper.scrape[:symptoms]).to include('Symptoms can appear at any age.')
-      expect(scraper.scrape[:symptoms]).to include('Cardiovascular involvement is common.')
+      expect(scraper.scrape[:symptoms]).to eq([
+        'Symptoms can appear at any age.',
+        'Cardiovascular involvement is common.'
+      ])
     end
 
     it 'extracts diagnostic methods as diagnosis' do
@@ -54,15 +61,36 @@ describe Scrapers::Orphanet::PageScraper do
 
     it 'extracts management and treatment as treatment' do
       result = scraper.scrape[:treatment]
-      expect(result).to include('Management should be multidisciplinary.')
-      expect(result).to include('Regular echocardiograms')
-      expect(result).to include('Beta-blocker therapy')
+      expect(result).to eq([
+        'Management should be multidisciplinary.',
+        'Regular echocardiograms',
+        'Beta-blocker therapy'
+      ])
+    end
+
+    it 'uses exact heading match and does not false-match partial text' do
+      html_with_extended = html.sub('Clinical description', 'Extended clinical description')
+      allow(URI).to receive(:open).and_return(html_with_extended)
+
+      # "Extended clinical description" should NOT match "clinical description"
+      expect(scraper.scrape[:symptoms]).to eq([])
     end
   end
 
   describe '#scrape when page fetch fails' do
     before do
       allow(URI).to receive(:open).and_raise(OpenURI::HTTPError.new('404', StringIO.new))
+    end
+
+    it 'returns empty arrays for all fields' do
+      result = scraper.scrape
+      expect(result).to eq(facts: [], symptoms: [], diagnosis: [], treatment: [])
+    end
+  end
+
+  describe '#scrape when page fetch times out' do
+    before do
+      allow(URI).to receive(:open).and_raise(Net::OpenTimeout.new('execution expired'))
     end
 
     it 'returns empty arrays for all fields' do

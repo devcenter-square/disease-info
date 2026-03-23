@@ -35,10 +35,15 @@ describe Scrapers::Orphanet::Parser do
     XML
   end
 
+  let(:empty_page_data) { { facts: [], symptoms: [], diagnosis: [], treatment: [] } }
+
   before do
     mock_response = instance_double(Scrapers::Orphanet::Response, results: orphanet_xml)
     mock_request = instance_double(Scrapers::Orphanet::Request, response: mock_response)
     allow(Scrapers::Orphanet::Request).to receive(:new).and_return(mock_request)
+
+    page_scraper = instance_double(Scrapers::Orphanet::PageScraper, scrape: empty_page_data)
+    allow(Scrapers::Orphanet::PageScraper).to receive(:new).and_return(page_scraper)
   end
 
   describe '.perform' do
