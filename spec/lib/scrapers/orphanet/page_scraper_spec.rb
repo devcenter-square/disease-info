@@ -4,43 +4,32 @@ describe Scrapers::Orphanet::PageScraper do
   let(:orpha_code) { '558' }
   let(:scraper) { described_class.new(orpha_code) }
 
-  let(:html) do
-    <<~HTML
-      <html>
-      <body>
-        <h3>Disease definition</h3>
-        <p>A systemic connective tissue disorder.</p>
-
-        <h3>Clinical description</h3>
-        <p>Symptoms can appear at any age.</p>
-        <p>Cardiovascular involvement is common.</p>
-
-        <h3>Diagnostic methods</h3>
-        <p>Diagnosis is based on clinical signs.</p>
-
-        <h3>Management and treatment</h3>
-        <p>Management should be multidisciplinary.</p>
-        <ul>
-          <li>Regular echocardiograms</li>
-          <li>Beta-blocker therapy</li>
-        </ul>
-
-        <h3>Prognosis</h3>
-        <p>Life expectancy has improved.</p>
-      </body>
-      </html>
-    HTML
+  let(:orphapacket_json) do
+    {
+      'Orphapacket' => {
+        'ORPHAcode' => '558',
+        'Label' => 'Marfan syndrome',
+        'TextSection' => {
+          'TextSectionType' => 'Definition',
+          'Contents' => 'A systemic connective tissue disorder.'
+        },
+        'Phenotypes' => [
+          { 'Phenotype' => { 'HPOId' => 'HP:0001519', 'HPOTerm' => 'Disproportionate tall stature', 'HPOFrequency' => 'Very frequent (99-80%)' } },
+          { 'Phenotype' => { 'HPOId' => 'HP:0001533', 'HPOTerm' => 'Slender build', 'HPOFrequency' => 'Frequent (79-30%)' } }
+        ]
+      }
+    }.to_json
   end
 
   before do
     allow(URI).to receive(:open)
       .with(
-        "#{described_class::BASE_URL}/#{orpha_code}",
+        "#{described_class::BASE_URL}/ORPHApacket_#{orpha_code}.json",
         'User-Agent' => described_class::USER_AGENT,
         open_timeout: described_class::OPEN_TIMEOUT,
         read_timeout: described_class::READ_TIMEOUT
       )
-      .and_return(html)
+      .and_return(StringIO.new(orphapacket_json))
   end
 
   describe '#scrape' do
@@ -48,54 +37,57 @@ describe Scrapers::Orphanet::PageScraper do
       expect(scraper.scrape[:facts]).to eq(['A systemic connective tissue disorder.'])
     end
 
-    it 'extracts clinical description as symptoms' do
+    it 'extracts phenotypes as symptoms with frequency' do
       expect(scraper.scrape[:symptoms]).to eq([
-        'Symptoms can appear at any age.',
-        'Cardiovascular involvement is common.'
+        'Disproportionate tall stature (Very frequent (99-80%))',
+        'Slender build (Frequent (79-30%))'
       ])
     end
 
-    it 'extracts diagnostic methods as diagnosis' do
-      expect(scraper.scrape[:diagnosis]).to eq(['Diagnosis is based on clinical signs.'])
+    it 'returns empty arrays for diagnosis and treatment' do
+      result = scraper.scrape
+      expect(result[:diagnosis]).to eq([])
+      expect(result[:treatment]).to eq([])
+    end
+  end
+
+  describe '#scrape with missing TextSection' do
+    let(:orphapacket_json) do
+      { 'Orphapacket' => { 'Phenotypes' => [] } }.to_json
     end
 
-    it 'extracts management and treatment as treatment' do
-      result = scraper.scrape[:treatment]
-      expect(result).to eq([
-        'Management should be multidisciplinary.',
-        'Regular echocardiograms',
-        'Beta-blocker therapy'
-      ])
+    it 'returns empty facts' do
+      expect(scraper.scrape[:facts]).to eq([])
+    end
+  end
+
+  describe '#scrape with missing Phenotypes' do
+    let(:orphapacket_json) do
+      { 'Orphapacket' => { 'TextSection' => { 'Contents' => 'Test' } } }.to_json
     end
 
-    it 'uses exact heading match and does not false-match partial text' do
-      html_with_extended = html.sub('Clinical description', 'Extended clinical description')
-      allow(URI).to receive(:open).and_return(html_with_extended)
-
-      # "Extended clinical description" should NOT match "clinical description"
+    it 'returns empty symptoms' do
       expect(scraper.scrape[:symptoms]).to eq([])
     end
   end
 
-  describe '#scrape when page fetch fails' do
+  describe '#scrape when fetch fails' do
     before do
       allow(URI).to receive(:open).and_raise(OpenURI::HTTPError.new('404', StringIO.new))
     end
 
     it 'returns empty arrays for all fields' do
-      result = scraper.scrape
-      expect(result).to eq(facts: [], symptoms: [], diagnosis: [], treatment: [])
+      expect(scraper.scrape).to eq(facts: [], symptoms: [], diagnosis: [], treatment: [])
     end
   end
 
-  describe '#scrape when page fetch times out' do
+  describe '#scrape when fetch times out' do
     before do
       allow(URI).to receive(:open).and_raise(Net::OpenTimeout.new('execution expired'))
     end
 
     it 'returns empty arrays for all fields' do
-      result = scraper.scrape
-      expect(result).to eq(facts: [], symptoms: [], diagnosis: [], treatment: [])
+      expect(scraper.scrape).to eq(facts: [], symptoms: [], diagnosis: [], treatment: [])
     end
   end
 end
