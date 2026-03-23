@@ -21,15 +21,17 @@ module Scrapers
       end
 
       def data
+        page_data = PageScraper.new(orpha_code).scrape
+
         {
           name: "#{disease_name} - #{DATA_SOURCE}",
           data_source: DATA_SOURCE,
           date_updated: Date.current.strftime('%B %Y'),
-          facts: [],
-          symptoms: [],
+          facts: page_data[:facts],
+          symptoms: page_data[:symptoms],
           transmission: [],
-          diagnosis: [],
-          treatment: [],
+          diagnosis: page_data[:diagnosis],
+          treatment: page_data[:treatment],
           prevention: [],
           prevalence: parse_prevalence,
           more: expert_link
@@ -40,6 +42,10 @@ module Scrapers
 
       def disease_name
         disorder_node.at_xpath('Name').text.strip
+      end
+
+      def orpha_code
+        disorder_node.at_xpath('OrphaCode').text.strip
       end
 
       def expert_link
