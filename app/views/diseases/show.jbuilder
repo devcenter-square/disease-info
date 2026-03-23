@@ -10,4 +10,6 @@ json.disease do
   json.prevention @disease.prevention
   json.more @disease.more
   json.is_active @disease.is_active
+  json.prevalence @disease.prevalence
+  json.data_source @disease.data_source
 end

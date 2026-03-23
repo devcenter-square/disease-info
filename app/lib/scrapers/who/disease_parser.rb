@@ -18,11 +18,10 @@ module Scrapers
 
         disease_page.css('h2').each_with_index do |tag, index|
           CORE_ATTR.each do |attr|
-            begin
-              collect_data_for(attr, disease_data, tag, index)
-            rescue
-              next
-            end
+            collect_data_for(attr, disease_data, tag, index)
+          rescue StandardError => e
+            Rails.logger.warn("[WHO DiseaseParser] Failed to parse '#{attr}' for #{disease_data[:name]}: #{e.message}")
+            next
           end
         end
         disease_data
@@ -38,7 +37,7 @@ module Scrapers
           else
             xpath_text = "//h2[contains(text(),'#{tag.text}')]/following::p"
           end
-          attr_text = disease_page.xpath(xpath_text).text
+          attr_text = disease_page.xpath(xpath_text).map { |p| p.text.strip }.reject(&:blank?)
           disease_data[core_attribute.to_sym] = attr_text
         end
       end
@@ -50,6 +49,7 @@ module Scrapers
 
         {
           name: "#{title} - #{DATA_SOURCE}",
+          data_source: DATA_SOURCE,
           date_updated: date_str,
           facts: facts(disease_page),
           more: "Source is https://www.who.int#{href}"

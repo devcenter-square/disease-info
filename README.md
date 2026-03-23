@@ -1,6 +1,6 @@
-# Disease Info [![Code Climate](https://codeclimate.com/github/devcenter-square/disease-info/badges/gpa.svg)](https://codeclimate.com/github/devcenter-square/disease-info) [![Test Coverage](https://codeclimate.com/github/devcenter-square/disease-info/badges/coverage.svg)](https://codeclimate.com/github/devcenter-square/disease-info/coverage)
+# Disease Info
 
-This project is basically for getting information about diseases from Health Organizations - WHO, CDC et al. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md).
+This project is basically for getting information about diseases from Health Organizations and rare disease databases. It is written in [Ruby](https://www.ruby-lang.org/en/), to contribute, check out the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md).
 
 ## Requirements
 
@@ -36,9 +36,13 @@ If you don't have it installed, check the following links for guides on how to i
 
 ## Populating the Database
 
-Populate Database with disease info by running
+Populate the database with disease info from individual sources or all at once:
 
-`rake mine_data:who`
+```
+rake mine_data:who        # Scrape WHO fact sheets
+rake mine_data:orphanet   # Fetch Orphanet rare disease data with prevalence
+rake mine_data:all        # Fetch from all sources
+```
 
 When this is done, visit the endpoint for diseases on [http://localhost:3000/diseases](http://localhost:3000/diseases) to get a list of all diseases on your database.
 
@@ -46,23 +50,46 @@ When this is done, visit the endpoint for diseases on [http://localhost:3000/dis
 
 The present scrapers are:
 
-* WHO, collects data from [WHO's Fact Sheets page](https://www.who.int/news-room/fact-sheets)
+* **WHO** — collects data from [WHO's Fact Sheets page](https://www.who.int/news-room/fact-sheets) (symptoms, transmission, diagnosis, treatment, prevention)
+* **Orphanet** — fetches rare disease data from [Orphadata](https://www.orphadata.com/epidemiology/) epidemiology XML (6,443 diseases with prevalence data, CC BY 4.0)
 
-Feel free to add another scraper by first adding your rake task to the present list on `lib/tasks/mine_data.rake`.
-Then create your scraper in `app/lib/scrapers`. You can follow the example of the WHO scraper.
-If you have to add new columns to the existing Disease structure based on the data you get, feel free to do that.
-More importantly, add the source of your data in the `more` column present on the Disease object.
-Make sure to name space your Disease name with the source. For example Malaria from WHO is saved with name Malaria - WHO.
+Each scraper lives in `app/lib/scrapers/<source>/` and follows the same pattern: `Request`, `Response`, `Parser`, and `DiseaseParser` classes.
+
+To add a new scraper:
+1. Create your scraper classes in `app/lib/scrapers/<source>/`
+2. Add a rake task in `lib/tasks/mine_data.rake`
+3. Add a method to `app/lib/data_miner.rb`
+4. Set `data_source` on each Disease record to your source name (e.g., "CDC")
+5. Namespace the disease name with the source (e.g., "Malaria - WHO")
+6. Add the source URL in the `more` column
 
 ## Available End Points
 
 | End Point                               | Method | Expected response                                                            |
 | --------------------------------------- |:------:|------------------------------------------------------------------------------|
 | /diseases                               | GET    | Gets a list of all diseases                                                  |
-| /diseases?data_source=source            | GET    | Gets a list of diseases from a particular source. Available sources are: WHO |
+| /diseases?data_source=source            | GET    | Gets a list of diseases from a particular source. Available sources: WHO, ORPHANET |
 | /diseases/:disease                      | GET    | Gets a particular disease with the supplied name                             |
 | /diseases/:disease/:attribute           | GET    | Gets a specific attribute of a disease (e.g. symptoms, treatment)           |
 | /diseases/:disease/set_active_status    | PUT    | Sets the active status of a disease (is_active: true/false)                 |
+
+### Disease Fields
+
+Each disease record includes:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| name | string | Disease name with source suffix (e.g., "Malaria - WHO") |
+| data_source | string | Source identifier: "WHO" or "ORPHANET" |
+| prevalence | decimal | Cases per 100,000 population (null if unavailable) |
+| facts | array | Key facts about the disease |
+| symptoms | array | Symptom descriptions |
+| transmission | array | Transmission methods |
+| diagnosis | array | Diagnostic procedures |
+| treatment | array | Treatment information |
+| prevention | array | Prevention strategies |
+| more | string | Source URL |
+| is_active | boolean | Whether the disease record is active |
 
 ## Road Map
 
@@ -70,6 +97,8 @@ To see it live, visit the deployed API. For a specific disease, use `/diseases/t
 
 ### To Do
 First see the [Contribution Guide](https://github.com/devcenter-square/disease-info/blob/develop/CONTRIBUTING.md) for how to contribute.
-- [ ] Add more Health Organizations' disease information sites
-- [ ] Include a way to verify the scrapped data
-- [ ] Put the symptoms of each disease in an array
+- [ ] Add more Health Organizations' disease information sites (e.g., CDC)
+- [ ] Include a way to verify the scraped data
+- [x] ~~Put the symptoms of each disease in an array~~
+- [x] ~~Add a second data source (Orphanet)~~
+- [x] ~~Add prevalence field~~

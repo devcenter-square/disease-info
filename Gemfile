@@ -9,6 +9,7 @@ gem 'nokogiri', '>= 1.19.1'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'jbuilder', '~> 2.11'
 gem 'responders', '~> 3.0'
+gem 'puma'
 
 group :development, :test do
   gem 'pry'
@@ -30,7 +31,6 @@ end
 group :development do
   gem 'web-console', '>= 4.1.0'
   gem 'spring'
-  gem 'puma'
 end
 
 group :production do

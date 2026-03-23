@@ -1,9 +1,10 @@
 class DiseasesController < ApplicationController
-  before_action :set_disease, only: [:show, :set_active_status]
+  before_action :set_disease, only: [:show]
+  before_action :set_disease_exact, only: [:set_active_status]
 
   def index
     if permitted_params.include?(:data_source)
-      @diseases = Disease.where("lower(name) LIKE?", "%#{permitted_params[:data_source].downcase}%")
+      @diseases = Disease.by_source(permitted_params[:data_source].upcase)
     else
       @diseases = Disease.all
     end
@@ -13,17 +14,16 @@ class DiseasesController < ApplicationController
   end
 
   def set_active_status
-    # falsey values like boolean 'false', 'nil' evaluates to false
-    is_active = !!params[:is_active] == true
+    is_active = ActiveModel::Type::Boolean.new.cast(params[:is_active]) || false
 
-    @disease.update_attribute(:is_active, is_active)
+    @disease.update(is_active: is_active)
   end
 
   def show_attr
     column = permitted_params[:attribute].downcase
     disease = permitted_params[:disease].downcase
     if valid?(column)
-      @disease_attr = Disease.select(column.to_sym).where("lower(name) LIKE?", "%#{disease}%").first
+      @disease_attr = Disease.select(column.to_sym).where("lower(name) LIKE ?", "%#{Disease.sanitize_sql_like(disease)}%").first
     else
       render json: {}, status: :not_found
     end
@@ -31,7 +31,11 @@ class DiseasesController < ApplicationController
 
   private
   def set_disease
-    @disease = Disease.where("lower(name) LIKE?", "%#{permitted_params[:disease].downcase}%").first
+    @disease = Disease.where("lower(name) LIKE ?", "%#{Disease.sanitize_sql_like(permitted_params[:disease].downcase)}%").first
+  end
+
+  def set_disease_exact
+    @disease = Disease.find_by("lower(name) = ?", permitted_params[:disease].downcase)
   end
 
   def permitted_params
