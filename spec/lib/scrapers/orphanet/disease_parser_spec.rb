@@ -54,6 +54,17 @@ describe Scrapers::Orphanet::DiseaseParser do
 
   let(:node) { Nokogiri::XML(disorder_xml).at_xpath('//Disorder') }
   let(:parser) { described_class.new(node) }
+  let(:page_scraper) { instance_double(Scrapers::Orphanet::PageScraper) }
+
+  before do
+    allow(Scrapers::Orphanet::PageScraper).to receive(:new).with('166024').and_return(page_scraper)
+    allow(page_scraper).to receive(:scrape).and_return(
+      facts: ['A rare skeletal dysplasia.'],
+      symptoms: ['Frontal bossing', 'Short neck'],
+      diagnosis: ['Based on clinical signs.'],
+      treatment: ['Supportive management.']
+    )
+  end
 
   describe '#data' do
     it 'returns disease data with ORPHANET source suffix' do
@@ -69,11 +80,26 @@ describe Scrapers::Orphanet::DiseaseParser do
       expect(parser.data[:more]).to include('orpha.net')
     end
 
-    it 'initializes array fields as empty arrays' do
+    it 'populates facts from the page scraper' do
+      expect(parser.data[:facts]).to eq(['A rare skeletal dysplasia.'])
+    end
+
+    it 'populates symptoms from the page scraper' do
+      expect(parser.data[:symptoms]).to eq(['Frontal bossing', 'Short neck'])
+    end
+
+    it 'populates diagnosis from the page scraper' do
+      expect(parser.data[:diagnosis]).to eq(['Based on clinical signs.'])
+    end
+
+    it 'populates treatment from the page scraper' do
+      expect(parser.data[:treatment]).to eq(['Supportive management.'])
+    end
+
+    it 'keeps transmission and prevention as empty arrays' do
       data = parser.data
-      %i[facts symptoms transmission diagnosis treatment prevention].each do |field|
-        expect(data[field]).to eq([])
-      end
+      expect(data[:transmission]).to eq([])
+      expect(data[:prevention]).to eq([])
     end
 
     it 'parses prevalence from point prevalence class' do
@@ -82,10 +108,15 @@ describe Scrapers::Orphanet::DiseaseParser do
   end
 
   describe 'prevalence parsing' do
+    before do
+      allow(Scrapers::Orphanet::PageScraper).to receive(:new).with('12345').and_return(page_scraper)
+    end
+
     context 'with ValMoy greater than zero' do
       let(:disorder_xml) do
         <<~XML
           <Disorder>
+            <OrphaCode>12345</OrphaCode>
             <Name lang="en">Test Disease</Name>
             <ExpertLink lang="en">http://example.com</ExpertLink>
             <PrevalenceList count="1">
@@ -108,6 +139,7 @@ describe Scrapers::Orphanet::DiseaseParser do
       let(:disorder_xml) do
         <<~XML
           <Disorder>
+            <OrphaCode>12345</OrphaCode>
             <Name lang="en">Test Disease</Name>
             <ExpertLink lang="en">http://example.com</ExpertLink>
             <PrevalenceList count="1">
@@ -130,6 +162,7 @@ describe Scrapers::Orphanet::DiseaseParser do
       let(:disorder_xml) do
         <<~XML
           <Disorder>
+            <OrphaCode>12345</OrphaCode>
             <Name lang="en">Test Disease</Name>
             <ExpertLink lang="en">http://example.com</ExpertLink>
             <PrevalenceList count="0"/>
@@ -148,6 +181,7 @@ describe Scrapers::Orphanet::DiseaseParser do
           escaped_class = prevalence_class.gsub('<', '&lt;').gsub('>', '&gt;')
           <<~XML
             <Disorder>
+              <OrphaCode>12345</OrphaCode>
               <Name lang="en">Test Disease</Name>
               <ExpertLink lang="en">http://example.com</ExpertLink>
               <PrevalenceList count="1">
